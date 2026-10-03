@@ -1,0 +1,43 @@
+services:
+  app1:
+    build: ./app
+    environment:
+      - NOME=app1
+      - OUTROS=app2,app3
+    ports:
+      - "5001:5000"
+    volumes:
+      - dados:/data
+    networks:
+      - minha_rede
+
+  app2:
+    build: ./app
+    environment:
+      - NOME=app2
+      - OUTROS=app1,app3
+    ports:
+      - "5002:5000"
+    volumes:
+      - dados:/data
+    networks:
+      - minha_rede
+
+  app3:
+    build: ./app
+    environment:
+      - NOME=app3
+      - OUTROS=app1,app2
+    ports:
+      - "5003:5000"
+    volumes:
+      - dados:/data
+    networks:
+      - minha_rede
+
+volumes:
+  dados:
+
+networks:
+  minha_rede:
+    driver: bridge
